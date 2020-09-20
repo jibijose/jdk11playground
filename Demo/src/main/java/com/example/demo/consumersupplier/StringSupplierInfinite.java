@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class StringSupplier implements Supplier<String> {
+public class StringSupplierInfinite implements Supplier<String> {
 
   private int index = 0;
 
@@ -14,8 +14,8 @@ public class StringSupplier implements Supplier<String> {
     String str = null;
     try {
       Thread.sleep(100);
+      str = "name" + index;
       index++;
-      str = "jibi" + index;
     } catch (InterruptedException ie) {
       ie.printStackTrace();
       str = "ERROR";

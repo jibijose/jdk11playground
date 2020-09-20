@@ -10,7 +10,7 @@ public class StringConsumer implements Consumer<String> {
   public void accept(String s) {
     log.debug("Accepting string {}", s);
     try {
-      Thread.sleep(1000);
+      Thread.sleep(100);
     } catch (InterruptedException ie) {
       ie.printStackTrace();
     }
