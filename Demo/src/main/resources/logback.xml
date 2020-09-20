@@ -9,8 +9,8 @@
   </appender>
 
   <logger name="com.example.demo.consumersupplier.StringConsumer" level="DEBUG"/>
-  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="DEBUG"/>
-  <logger name="com.example.demo.consumersupplier.StringSpliterator" level="DEBUG"/>
+  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="WARN"/>
+  <logger name="com.example.demo.consumersupplier.StringSpliterator" level="WARN"/>
 
   <root level="INFO">
     <appender-ref ref="STDOUT" />

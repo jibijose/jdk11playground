@@ -20,11 +20,27 @@ public class CustomConsumerSupplier {
 
   @Test
   public void ConsumerSupplierFinite() {
-    String[] store = {"hi", "jibi", "jose", "hello", "world"};
+    String[] store = {"hi", "jibi", "jose", "hello", "world", "end"};
     Spliterator<String> mySpliterator = new StringSpliterator(store);
     Consumer<String> myConsumer = new StringConsumer();
 
-    StreamSupport.stream(mySpliterator, false).parallel().forEach(myConsumer);
+    StreamSupport.stream(mySpliterator, false)
+        .filter(s -> s.length() <= 5 )
+        .parallel().forEach(myConsumer);
   }
 
+  @Test
+  public void ConsumerSupplierFiniteWithPredicate() {
+    String[] store = {"hi", "jibi", "jose", "hello", "world", "end"};
+    Spliterator<String> mySpliterator = new StringSpliterator(store);
+    Consumer<String> myConsumer = new StringConsumer();
+
+    StreamSupport.stream(mySpliterator, false)
+        .filter(new StringPredicate(3))
+        .parallel()
+        .forEach(myConsumer);
+  }
+
+  @Test
+  public void CustomForkJoinPool() {}
 }
