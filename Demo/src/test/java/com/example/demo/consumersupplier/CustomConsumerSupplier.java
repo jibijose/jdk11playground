@@ -14,7 +14,7 @@ public class CustomConsumerSupplier {
     Supplier<String> mySupplier = new StringSupplierInfinite();
     Consumer<String> myConsumer = new StringConsumer();
 
-    Stream<String> myStream = Stream.generate(mySupplier);
+    Stream<String> myStream = Stream.generate(mySupplier).limit(10);
     myStream.forEach(myConsumer);
   }
 

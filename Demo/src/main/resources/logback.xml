@@ -8,8 +8,8 @@
     </encoder>
   </appender>
 
-  <logger name="com.example.demo.consumersupplier.StringConsumer" level="WARN"/>
-  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="WARN"/>
+  <logger name="com.example.demo.consumersupplier.StringConsumer" level="DEBUG"/>
+  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="DEBUG"/>
   <logger name="com.example.demo.consumersupplier.StringSpliterator" level="DEBUG"/>
 
   <root level="INFO">
