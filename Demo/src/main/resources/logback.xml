@@ -8,7 +8,11 @@
     </encoder>
   </appender>
 
-  <root level="debug">
+  <logger name="com.example.demo.consumersupplier.StringConsumer" level="WARN"/>
+  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="WARN"/>
+  <logger name="com.example.demo.consumersupplier.StringSpliterator" level="DEBUG"/>
+
+  <root level="INFO">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

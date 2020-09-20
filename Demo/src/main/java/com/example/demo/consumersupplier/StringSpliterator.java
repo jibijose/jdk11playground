@@ -9,11 +9,26 @@ import lombok.extern.slf4j.Slf4j;
 public class StringSpliterator implements Spliterator<String> {
 
   private int index = 0;
-  private String[] store = {"hi", "jibi", "jose", "hello", "world", "end"};
+
+  private String[] store = null;
+  private int start = 0;
+  private int end = 0;
+
+  public StringSpliterator(String[] store) {
+    this(store, 0, store.length - 1);
+  }
+
+  public StringSpliterator(String[] store, int start, int end) {
+    this.store = store;
+    this.start = start;
+    this.end = end;
+
+    index = start;
+  }
 
   @Override
   public boolean tryAdvance(Consumer<? super String> action) {
-    if (index < store.length) {
+    if (index >= start && index <= end) {
       log.debug("Supplying [{}] with index {}", store[index], index);
       action.accept(store[index]);
       index++;
@@ -25,12 +40,20 @@ public class StringSpliterator implements Spliterator<String> {
 
   @Override
   public Spliterator<String> trySplit() {
-    return null;
+    if ((end - start) <= 0) {
+      return null;
+    }
+
+    int mid = start + (end - start + 1) / 2 - 1;
+    log.debug("[{}, {}] -> [{}, {}] + [{}, {}]", start, end, start, mid, mid+1, end);
+    int secondEnd = end;
+    end = mid;
+    return new StringSpliterator(store, end + 1, secondEnd);
   }
 
   @Override
   public long estimateSize() {
-    return store.length;
+    return (end - start + 1);
   }
 
   @Override

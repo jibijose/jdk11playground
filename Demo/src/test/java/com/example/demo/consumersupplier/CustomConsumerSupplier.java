@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class CustomConsumerSupplier {
 
   @Test
-  public void ConsumerSupplierInfinite(){
+  public void ConsumerSupplierInfinite() {
     Supplier<String> mySupplier = new StringSupplierInfinite();
     Consumer<String> myConsumer = new StringConsumer();
 
@@ -19,10 +19,12 @@ public class CustomConsumerSupplier {
   }
 
   @Test
-  public void ConsumerSupplierFinite(){
-    Spliterator<String> mySpliterator = new StringSpliterator();
+  public void ConsumerSupplierFinite() {
+    String[] store = {"hi", "jibi", "jose", "hello", "world"};
+    Spliterator<String> mySpliterator = new StringSpliterator(store);
     Consumer<String> myConsumer = new StringConsumer();
 
     StreamSupport.stream(mySpliterator, false).parallel().forEach(myConsumer);
   }
+
 }
