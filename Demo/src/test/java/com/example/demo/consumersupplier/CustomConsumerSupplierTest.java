@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.junit.jupiter.api.Test;
 
-public class CustomConsumerSupplier {
+public class CustomConsumerSupplierTest {
 
   @Test
   public void ConsumerSupplierInfinite() {

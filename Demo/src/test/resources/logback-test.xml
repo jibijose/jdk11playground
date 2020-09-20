@@ -11,7 +11,7 @@
   <logger name="com.example.demo.consumersupplier.StringConsumer" level="DEBUG"/>
   <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="WARN"/>
   <logger name="com.example.demo.consumersupplier.StringSpliterator" level="WARN"/>
-  <logger name="com.example.demo.fibonacci" level="DEBUG"/>
+  <logger name="com.example.demo.fibonacci.FibonacciTest" level="DEBUG"/>
 
   <root level="INFO">
     <appender-ref ref="STDOUT" />
