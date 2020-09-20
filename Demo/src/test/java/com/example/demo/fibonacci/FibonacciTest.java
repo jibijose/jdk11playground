@@ -3,6 +3,7 @@ package com.example.demo.fibonacci;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -77,6 +78,18 @@ public class FibonacciTest {
         new BigInteger(
             "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000"),
         Fibonacci.getFibonacci(100));
+  }
+
+  @Test
+  public void printFibonaccis() {
+    Instant allStartTime = Instant.now();
+    IntStream.rangeClosed(1, 10000)
+        .forEach(
+            number -> {
+              log.info("Fibonacci of {} is {}", number, Fibonacci.getFibonacci(number));
+            });
+    Instant allStopTime = Instant.now();
+    log.info("Print all time is {}", Duration.between(allStartTime, allStopTime).toSeconds());
   }
 
   @AfterAll
