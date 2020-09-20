@@ -9,11 +9,11 @@
   </appender>
 
   <logger name="com.example.demo.consumersupplier.StringConsumer" level="DEBUG"/>
-  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="WARN"/>
-  <logger name="com.example.demo.consumersupplier.StringSpliterator" level="WARN"/>
+  <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="DEBUG"/>
+  <logger name="com.example.demo.consumersupplier.StringSpliterator" level="DEBUG"/>
   <logger name="com.example.demo.fibonacci.FibonacciTest" level="DEBUG"/>
 
-  <root level="INFO">
+  <root level="DEBUG">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>
