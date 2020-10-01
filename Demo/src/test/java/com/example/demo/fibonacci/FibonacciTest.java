@@ -83,7 +83,7 @@ public class FibonacciTest {
   @Test
   public void printFibonaccis() {
     Instant allStartTime = Instant.now();
-    IntStream.rangeClosed(1, 10000)
+    IntStream.rangeClosed(1, 100)
         .forEach(
             number -> {
               log.info("Fibonacci of {} is {}", number, Fibonacci.getFibonacci(number));
