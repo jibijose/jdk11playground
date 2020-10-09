@@ -1,11 +1,9 @@
 package com.example.demo.ds;
 
-import java.lang.invoke.VarHandle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 public class CustomHashMap<K, V> implements Map<K, V> {
