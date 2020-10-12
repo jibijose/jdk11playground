@@ -20,17 +20,17 @@ import lombok.extern.slf4j.Slf4j;
 public class BigFileSorter {
 
   private static int KEY_LENGTH = 16;
-  private static int GB_SIZE = 20;
+  private static int GB_SIZE = 1;
   private static int FILES_COUNT = GB_SIZE * 10;
-  private static int PROGRESS_GROUPS = 1000000;
+  private static int PROGRESS_GROUPS = 10 * 1000 * 1000;
   private static String FILE_PAD_FORMAT = "%04d";
 
   public static void main(String args[]) {
     BigFileSorter bigFileSorter = new BigFileSorter();
-    // bigFileSorter.createBigFile();
+    bigFileSorter.createBigFile();
     bigFileSorter.divideBigFile();
-    // bigFileSorter.sortSmallFiles();
-    // bigFileSorter.combineSmallFiles();
+    bigFileSorter.sortSmallFiles();
+    bigFileSorter.combineSmallFiles();
   }
 
   private void combineSmallFiles() {
@@ -38,6 +38,7 @@ public class BigFileSorter {
     Scanner[] scanners = new Scanner[FILES_COUNT];
     String[] lines = new String[FILES_COUNT];
     initializeSmallfileReaders(fileInputStreams, scanners);
+    int numOfLinesCombined = 0;
 
     IntStream.range(0, FILES_COUNT)
         .forEach(
@@ -53,16 +54,19 @@ public class BigFileSorter {
       try (PrintWriter printWriter = new PrintWriter(fileWriter)) {
 
         int indexSmallest = findSmallest(lines);
-        log.debug("IndexSmallest is {}", indexSmallest);
         while (indexSmallest >= 0) {
           printWriter.println(lines[indexSmallest]);
+          numOfLinesCombined++;
+          if (numOfLinesCombined % PROGRESS_GROUPS == 0) {
+            log.debug("Number of sorted lines written is {}", numOfLinesCombined);
+          }
+
           if (scanners[indexSmallest].hasNextLine()) {
             lines[indexSmallest] = scanners[indexSmallest].nextLine();
           } else {
             lines[indexSmallest] = null;
           }
           indexSmallest = findSmallest(lines);
-          log.debug("IndexSmallest is {}", indexSmallest);
         }
       }
     } catch (IOException ioException) {
@@ -101,8 +105,9 @@ public class BigFileSorter {
     IntStream.range(0, FILES_COUNT)
         .forEach(
             index -> {
-              String fileName = "temp/smallfile_" + format(FILE_PAD_FORMAT, index) + ".txt";
-              String fileNameSorted = "temp/smallfile_sorted_" + format(FILE_PAD_FORMAT, index) + ".txt";
+              String fileName = "temp/smallfile_" + format(FILE_PAD_FORMAT, index + 1) + ".txt";
+              String fileNameSorted =
+                  "temp/smallfile_sorted_" + format(FILE_PAD_FORMAT, index + 1) + ".txt";
               try (FileInputStream inputStream = new FileInputStream(fileName)) {
                 try (Scanner scanner = new Scanner(inputStream, "UTF-8")) {
                   Map<String, String> fileMap = new TreeMap<>();
@@ -150,6 +155,9 @@ public class BigFileSorter {
           String line = scanner.nextLine();
           lineCount++;
           printWriters[lineCount % FILES_COUNT].println(line);
+          if (lineCount % PROGRESS_GROUPS == 0) {
+            log.debug("Read and  divided lines {} from bigfile.txt", lineCount);
+          }
         }
         if (scanner.ioException() != null) {
           throw scanner.ioException();
@@ -179,7 +187,8 @@ public class BigFileSorter {
               try {
                 int indexFile = indexFileReader.getAndIncrement();
                 fileInputStreams[indexFile] =
-                    new FileInputStream("temp/smallfile_sorted_" + format(FILE_PAD_FORMAT, indexFile) + ".txt");
+                    new FileInputStream(
+                        "temp/smallfile_sorted_" + format(FILE_PAD_FORMAT, indexFile + 1) + ".txt");
                 scanners[indexFile] = new Scanner(fileInputStreams[indexFile]);
               } catch (IOException ioException) {
                 log.error("File reader creation error", ioException);
@@ -194,7 +203,9 @@ public class BigFileSorter {
             fileWriter -> {
               try {
                 int indexFile = indexFileWriter.getAndIncrement();
-                fileWriters[indexFile] = new FileWriter("temp/smallfile_" + format(FILE_PAD_FORMAT, indexFile) + ".txt");
+                fileWriters[indexFile] =
+                    new FileWriter(
+                        "temp/smallfile_" + format(FILE_PAD_FORMAT, indexFile + 1) + ".txt");
                 printWriters[indexFile] = new PrintWriter(fileWriters[indexFile]);
               } catch (IOException ioException) {
                 log.error("File writer creation error", ioException);
