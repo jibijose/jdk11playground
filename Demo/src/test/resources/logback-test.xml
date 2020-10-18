@@ -12,6 +12,7 @@
   <logger name="com.example.demo.consumersupplier.StringSupplierInfinite" level="DEBUG"/>
   <logger name="com.example.demo.consumersupplier.StringSpliterator" level="DEBUG"/>
   <logger name="com.example.demo.fibonacci.FibonacciTest" level="DEBUG"/>
+  <logger name="com.example.demo.concurrent.Order" level="DEBUG"/>
 
   <root level="DEBUG">
     <appender-ref ref="STDOUT" />
