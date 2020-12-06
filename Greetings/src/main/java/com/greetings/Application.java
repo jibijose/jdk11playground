@@ -1,6 +1,7 @@
 package com.greetings;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.astro.price.PriceService;
@@ -10,7 +11,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class Application implements CommandLineRunner {
 
   public static void main(String[] args) {
-    new SpringApplicationBuilder(Application.class).web(false).run(args);
+    //new SpringApplicationBuilder(Application.class).web(false).run(args);
+	  new SpringApplicationBuilder(Application.class).web(WebApplicationType.NONE).run(args);
   }
 
   @Override

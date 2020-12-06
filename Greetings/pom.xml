@@ -13,7 +13,6 @@
           <target>${java.version}</target>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.8.0</version>
       </plugin>
       <plugin>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -23,9 +22,8 @@
   </build>
   <dependencies>
     <dependency>
-      <artifactId>spring-boot-starter</artifactId>
+      <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
-      <version>2.3.3.RELEASE</version>
     </dependency>
     <dependency>
       <artifactId>astro</artifactId>
@@ -33,23 +31,20 @@
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  <groupId>com.test</groupId>
   <modelVersion>4.0.0</modelVersion>
 
-  <packaging>jar</packaging>
+  
 
   <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.0.6.RELEASE</version>
+    <groupId>com.test</groupId>
+    <artifactId>jdk11playground-all</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
     <java.version>11</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <version>1.0.0-SNAPSHOT</version>
 
 </project>

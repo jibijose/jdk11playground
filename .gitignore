@@ -4,3 +4,7 @@ target
 
 **/bigfile*.txt
 **/smallfile*.txt
+
+**/.settings
+**/.classpath
+**/.project
