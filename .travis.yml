@@ -1,0 +1,29 @@
+# more info here about TravisCI and Java projects
+# http://docs.travis-ci.com/user/languages/java/
+
+language: java
+os: linux
+dist: bionic
+
+cache:
+  directories:
+    - $HOME/.m2
+
+jdk:
+  - openjdk11
+  - openjdk15
+
+before_install:
+  - export JAVA_OPTS=-Xmx1g
+  - export MAVEN_OPTS=-Xmx1g
+before_script:
+  - java -version
+  - ./mvnw --version
+
+install:
+  - ./mvnw clean compile -B -V
+
+script:
+  - |
+    ./mvnw clean
+    ./mvnw package
