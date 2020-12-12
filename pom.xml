@@ -25,6 +25,7 @@
 		<module>Astro</module>
 		<module>Greetings</module>
 		<module>Demo</module>
+		<module>Spring</module>
 	</modules>
 	
 	<dependencies>
