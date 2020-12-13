@@ -21,7 +21,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>SpringWebflux</module>
+        <module>SpringJpa</module>
     </modules>
 
     <parent>
