@@ -14,6 +14,6 @@ public class CustomBlockingQueueTest {
         customBlockingQueue.get();
         customBlockingQueue.put("jose2");
 
-        customBlockingQueue.put("block");
+        //customBlockingQueue.put("block");
     }
 }
