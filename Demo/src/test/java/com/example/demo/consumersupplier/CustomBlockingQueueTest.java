@@ -7,24 +7,38 @@ import org.junit.jupiter.api.Test;
 public class CustomBlockingQueueTest {
 
     @Test
-    public void testSlowProducing() throws InterruptedException {
+    public void testSlowProducingLockCondition() throws InterruptedException {
         CustomBlockingQueueLockCondition customBlockingQueue = new CustomBlockingQueueLockCondition<String>(2);
         Thread producer = new Thread(new Producer(customBlockingQueue, 100));
         Thread consumer = new Thread(new Consumer(customBlockingQueue, 10));
-
-        producer.start();
-        consumer.start();
-
-        producer.join();
-        consumer.join();
+        startJoinProducerConsumer(producer, consumer);
     }
 
     @Test
-    public void testSlowConsuming() throws InterruptedException {
+    public void testSlowConsumingLockCondition() throws InterruptedException {
         CustomBlockingQueueLockCondition customBlockingQueue = new CustomBlockingQueueLockCondition<String>(2);
         Thread producer = new Thread(new Producer(customBlockingQueue, 10));
         Thread consumer = new Thread(new Consumer(customBlockingQueue, 100));
+        startJoinProducerConsumer(producer, consumer);
+    }
 
+    @Test
+    public void testSlowProducingSemaphore() throws InterruptedException {
+        CustomBlockingQueueLockCondition customBlockingQueue = new CustomBlockingQueueLockCondition<String>(2);
+        Thread producer = new Thread(new Producer(customBlockingQueue, 100));
+        Thread consumer = new Thread(new Consumer(customBlockingQueue, 10));
+        startJoinProducerConsumer(producer, consumer);
+    }
+
+    @Test
+    public void testSlowConsumingSemaphore() throws InterruptedException {
+        CustomBlockingQueueLockCondition customBlockingQueue = new CustomBlockingQueueLockCondition<String>(2);
+        Thread producer = new Thread(new Producer(customBlockingQueue, 10));
+        Thread consumer = new Thread(new Consumer(customBlockingQueue, 100));
+        startJoinProducerConsumer(producer, consumer);
+    }
+
+    private void startJoinProducerConsumer(Thread producer, Thread consumer) throws InterruptedException {
         producer.start();
         consumer.start();
 
