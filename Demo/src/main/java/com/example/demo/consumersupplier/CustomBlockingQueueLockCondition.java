@@ -23,12 +23,12 @@ public class CustomBlockingQueueLockCondition<E> {
     }
 
     public void put(E element) throws InterruptedException {
+        log.debug("Putting: " + element);
         lock.lock();
         try {
             while(queue.size() >= capacity) {
                 notFull.await();
             }
-            log.debug("Putting: " + element);
             queue.add(element);
             log.debug("Put: " + element);
             notEmpty.signalAll();
@@ -38,14 +38,14 @@ public class CustomBlockingQueueLockCondition<E> {
     }
 
     public E get() throws InterruptedException {
+        log.debug("Getting: ");
         lock.lock();
         try {
             while(queue.size() <= 0 ) {
                 notEmpty.await();
             }
-            log.debug("Removing: ");
             E element = queue.remove();
-            log.debug("Removed: " + element);
+            log.debug("Got: " + element);
             notFull.signalAll();
             return element;
         } finally {
